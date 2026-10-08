@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Content Results{% endblock %}
+{% block content %}
+<h3 class="mb-1">Generated Content — {{ campaign.product_name }}</h3>
+<p class="text-muted">Tone: {{ campaign.tone }} | Platform: {{ campaign.platform }} | Goal: {{ campaign.goal }}</p>
+
+<div class="row mt-3">
+    {% for v in variations %}
+    <div class="col-md-4 mb-3">
+        <div class="card p-3 h-100 {% if v.is_recommended %}border-success{% endif %}">
+            {% if v.is_recommended %}
+            <span class="badge recommended-badge mb-2">Recommended</span>
+            {% endif %}
+            <h5>{{ v.headline }}</h5>
+            <p class="text-muted">{{ v.caption }}</p>
+            <p><b>CTA:</b> {{ v.cta }}</p>
+            <p><small>Sentiment score: {{ v.sentiment_score }}</small></p>
+            <a href="{{ url_for('select_variation', campaign_id=campaign.id, variation_id=v.id) }}" class="btn btn-outline-primary btn-sm mt-auto">Select This</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<a href="{{ url_for('generate_content', campaign_id=campaign.id) }}" class="btn btn-secondary">Regenerate</a>
+{% endblock %}

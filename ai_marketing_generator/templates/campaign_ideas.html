@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Campaign Ideas{% endblock %}
+{% block content %}
+<h3 class="mb-1">Campaign Ideas</h3>
+<p class="text-muted mb-4">Tell us your business type and get ready-to-use campaign concepts.</p>
+
+<form method="POST" class="card p-3 mb-4 d-flex flex-row gap-2">
+    <input type="text" name="business_type" class="form-control" placeholder="e.g. bakery, tuition center, clothing store" value="{{ business_type }}" required>
+    <button type="submit" class="btn btn-primary text-nowrap">Generate Ideas</button>
+</form>
+
+{% if ideas %}
+<div class="row g-3">
+    {% for idea in ideas %}
+    <div class="col-md-6">
+        <div class="card p-3 h-100">
+            <span class="badge bg-primary mb-2 align-self-start">{{ idea.marketing_type }} &middot; {{ idea.platform }}</span>
+            <h5>{{ idea.title }}</h5>
+            <p class="text-muted small mb-3">{{ idea.description }}</p>
+            <a href="{{ url_for('campaign_input', marketing_type=idea.marketing_type, idea_title=idea.title, idea_description=idea.description) }}" class="btn btn-sm btn-outline-primary align-self-start">Use this idea</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

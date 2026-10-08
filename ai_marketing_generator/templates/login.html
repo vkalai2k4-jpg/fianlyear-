@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="hero-auth">
+    <div class="hero-left">
+        <span class="hero-label">AI-POWERED MARKETING</span>
+        <h1 class="hero-title">Create marketing content<br><span class="grad-text">in seconds.</span></h1>
+        <p class="hero-sub">AI-generated content and banners — with sentiment scoring and an approval workflow built in.</p>
+        <div class="hero-stats">
+            <div><strong>12+</strong><span>CONTENT TYPES</span></div>
+            <div><strong>AI</strong><span>POWERED</span></div>
+            <div><strong>Free</strong><span>TO USE</span></div>
+        </div>
+    </div>
+    <div class="hero-right">
+        <div class="auth-card">
+            <h3 class="mb-3">Login</h3>
+            <form method="POST">
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input type="text" name="username" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-hero w-100">Login &rarr;</button>
+            </form>
+            <p class="mt-3 text-center small">No account? <a href="{{ url_for('register') }}">Register here</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

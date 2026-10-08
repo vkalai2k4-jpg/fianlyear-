@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI Marketing Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
+</head>
+<body>
+
+<header class="topnav">
+    <div class="logo">⚡ AI Marketing Studio</div>
+    <div class="topnav-links">
+        <a href="#features">Features</a>
+        <a href="#workflow">Workflow</a>
+        <a href="{{ url_for('login') }}" class="link-login">Login</a>
+        <a href="{{ url_for('register') }}" class="pill pill-sm">Get started →</a>
+    </div>
+</header>
+
+<!-- HERO (dark) -->
+<section class="hero dark">
+    <div class="glow glow-a"></div>
+    <div class="glow glow-b"></div>
+    <div class="hero-inner">
+        <span class="label">✦ AI-powered marketing</span>
+        <h1>Turn one idea into<br><span class="grad-text">ready-to-run campaigns</span></h1>
+        <p class="sub">Generate content, banners and narrated videos for your shop in minutes, with a built-in approval workflow.</p>
+        <a href="{{ url_for('register') }}" class="pill">Start creating <span class="arrow">→</span></a>
+    </div>
+</section>
+
+<!-- STATS (light) -->
+<section class="stats light">
+    <div class="stat"><div class="num">12</div><div class="cap">Marketing content types</div></div>
+    <div class="stat"><div class="num">3</div><div class="cap">Languages incl. Tamil</div></div>
+    <div class="stat"><div class="num">4</div><div class="cap">Steps: idea to export</div></div>
+    <div class="stat"><div class="num">1-click</div><div class="cap">Banner &amp; video download</div></div>
+</section>
+
+<!-- FEATURES CAROUSEL (dark) -->
+<section id="features" class="dark section">
+    <div class="section-head">
+        <span class="label">✦ Features</span>
+        <h2>Everything to launch a campaign</h2>
+    </div>
+    <div class="carousel">
+        <article class="fcard"><div class="fimg g1">📝</div><span class="badge">12 types</span><h3>Content Generator</h3><p>AI headlines, captions and CTAs with sentiment scoring to pick the best variation.</p></article>
+        <article class="fcard"><div class="fimg g2">🎨</div><span class="badge">Photo upload</span><h3>Banner Studio</h3><p>Upload your shop photo and get a banner with your name, address and offer printed on it.</p></article>
+        <article class="fcard"><div class="fimg g4">💡</div><span class="badge">Ready ideas</span><h3>Campaign Ideas</h3><p>Pick a business type and get ready-made campaign concepts to start from.</p></article>
+        <article class="fcard"><div class="fimg g5">✅</div><span class="badge">2 roles</span><h3>Approval Workflow</h3><p>Owners create, managers approve, then campaigns go out by email.</p></article>
+    </div>
+</section>
+
+<!-- WORKFLOW (light) -->
+<section id="workflow" class="light section">
+    <div class="section-head">
+        <span class="label dark-label">✦ Workflow</span>
+        <h2>From idea to launch</h2>
+    </div>
+    <div class="steps">
+        <div class="step"><span class="label dark-label">01 · Discover</span><h3>Pick an idea</h3><p>Browse campaign ideas and templates.</p></div>
+        <div class="step"><span class="label dark-label">02 · Create</span><h3>Generate</h3><p>Content, banner or video in seconds.</p></div>
+        <div class="step"><span class="label dark-label">03 · Approve</span><h3>Review</h3><p>Manager checks before anything is sent.</p></div>
+        <div class="step"><span class="label dark-label">04 · Launch</span><h3>Send &amp; track</h3><p>Email customers and watch the dashboard.</p></div>
+    </div>
+</section>
+
+<!-- BUILT WITH strip (dark, auto-scroll) -->
+<section class="dark strip-section">
+    <p class="strip-title">BUILT WITH</p>
+    <div class="marquee"><div class="marquee-track">
+        <span>Flask</span><span>Claude API</span><span>TextBlob</span><span>Pollinations.ai</span><span>Pillow</span><span>MoviePy</span><span>Chart.js</span><span>SQLAlchemy</span>
+        <span>Flask</span><span>Claude API</span><span>TextBlob</span><span>Pollinations.ai</span><span>Pillow</span><span>MoviePy</span><span>Chart.js</span><span>SQLAlchemy</span>
+    </div></div>
+</section>
+
+<!-- CTA (light) -->
+<section class="light cta">
+    <h2>Ready to create your first campaign?</h2>
+    <a href="{{ url_for('register') }}" class="pill">Get started <span class="arrow">→</span></a>
+</section>
+
+<footer class="footer">AI Marketing Content Generator &amp; Optimizer · Capstone Project</footer>
+</body>
+</html>

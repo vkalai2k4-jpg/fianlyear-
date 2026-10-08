@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}AI Marketing Generator{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="bg-blobs" aria-hidden="true">
+    <span class="blob blob-1"></span>
+    <span class="blob blob-2"></span>
+    <span class="blob blob-3"></span>
+    <span class="blob blob-4"></span>
+    <span class="blob blob-5"></span>
+    <span class="blob blob-6"></span>
+</div>
+
+<div class="app-shell">
+    {% if current_user.is_authenticated %}
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <span class="brand-mark">⚡</span>
+            <span class="brand-text">AI Marketing<br>Generator</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="{{ url_for('owner_dashboard') if current_user.role == 'owner' else url_for('manager_dashboard') }}"><span>📊</span> Dashboard</a>
+            <a href="{{ url_for('campaign_input') }}"><span>➕</span> New Campaign</a>
+            <a href="{{ url_for('campaign_ideas') }}"><span>💡</span> Campaign Ideas</a>
+            <a href="{{ url_for('templates_gallery') }}"><span>📄</span> Templates</a>
+            {% if current_user.role == 'owner' %}
+            <a href="{{ url_for('banner_studio') }}"><span>🎨</span> Banner Studio</a>
+            {% endif %}
+            <a href="{{ url_for('showcase') }}"><span>✨</span> Showcase</a>
+            {% if current_user.role == 'owner' %}
+            <a href="{{ url_for('manage_customers') }}"><span>👥</span> Customers</a>
+            {% endif %}
+        </nav>
+        <div class="sidebar-footer">
+            <div class="user-chip">{{ current_user.username }} <small>({{ current_user.role }})</small></div>
+            <a href="{{ url_for('logout') }}" class="btn btn-sm btn-outline-light w-100 mt-2">Logout</a>
+        </div>
+    </aside>
+
+    <div id="askAiWidget">
+        <button id="askAiToggle" type="button" aria-label="Ask AI marketing helper">💬</button>
+        <div id="askAiPanel" class="d-none">
+            <div class="ask-ai-header">
+                <span>Ask AI — marketing helper</span>
+                <button type="button" id="askAiClose" aria-label="Close">×</button>
+            </div>
+            <div id="askAiMessages" class="ask-ai-messages">
+                <div class="ask-ai-msg ask-ai-bot">Hi! Ask me things like "what tone works for a clearance sale?" or "how do I write a festival offer?"</div>
+            </div>
+            <form id="askAiForm" class="ask-ai-form">
+                <input type="text" id="askAiInput" placeholder="Type a marketing question..." autocomplete="off">
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+    <script>
+    (function () {
+        const toggle = document.getElementById('askAiToggle');
+        const panel = document.getElementById('askAiPanel');
+        const closeBtn = document.getElementById('askAiClose');
+        const form = document.getElementById('askAiForm');
+        const input = document.getElementById('askAiInput');
+        const messages = document.getElementById('askAiMessages');
+
+        function addMsg(text, who) {
+            const div = document.createElement('div');
+            div.className = 'ask-ai-msg ask-ai-' + who;
+            div.textContent = text;
+            messages.appendChild(div);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        toggle.addEventListener('click', () => panel.classList.toggle('d-none'));
+        closeBtn.addEventListener('click', () => panel.classList.add('d-none'));
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const q = input.value.trim();
+            if (!q) return;
+            addMsg(q, 'user');
+            input.value = '';
+            addMsg('Thinking...', 'bot');
+
+            try {
+                const resp = await fetch('{{ url_for("ask_ai_query") }}', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question: q })
+                });
+                const data = await resp.json();
+                messages.lastChild.remove();
+                addMsg(data.answer || data.error || 'Something went wrong.', 'bot');
+            } catch (err) {
+                messages.lastChild.remove();
+                addMsg('Could not reach the server.', 'bot');
+            }
+        });
+    })();
+    </script>
+    {% else %}
+    <div class="guest-topbar">
+        <span class="brand-mark">⚡</span> AI Marketing Generator
+    </div>
+    {% endif %}
+
+    <div class="main-area">
+        <div class="container-fluid mt-4 px-4">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

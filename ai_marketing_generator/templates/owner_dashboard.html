@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Owner Dashboard{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>My Campaigns</h3>
+    <a href="{{ url_for('campaign_input') }}" class="btn btn-primary">+ New Campaign</a>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-3"><div class="card p-3 text-center"><h5>{{ stats.total }}</h5><small>Total Campaigns</small></div></div>
+    <div class="col-md-3"><div class="card p-3 text-center"><h5>{{ stats.sent }}</h5><small>Sent</small></div></div>
+    <div class="col-md-3"><div class="card p-3 text-center"><h5>{{ stats.approved }}</h5><small>Approved</small></div></div>
+    <div class="col-md-3"><div class="card p-3 text-center"><h5>{{ stats.customers }}</h5><small>Customers Reached</small></div></div>
+</div>
+
+<div class="card p-3">
+    <table class="table">
+        <thead>
+            <tr><th>Product</th><th>Platform</th><th>Tone</th><th>Status</th><th>Created</th><th></th></tr>
+        </thead>
+        <tbody>
+        {% for c in campaigns %}
+            <tr>
+                <td>{{ c.product_name }}</td>
+                <td>{{ c.platform }}</td>
+                <td>{{ c.tone }}</td>
+                <td><span class="badge bg-secondary">{{ c.status }}</span></td>
+                <td>{{ c.created_at.strftime('%d %b %Y') }}</td>
+                <td>
+                    {% if c.status == 'Draft' %}
+                    <a href="{{ url_for('content_results', campaign_id=c.id) }}" class="btn btn-sm btn-outline-primary">Continue</a>
+                    {% else %}
+                    <a href="{{ url_for('email_preview', campaign_id=c.id) }}" class="btn btn-sm btn-outline-secondary">View</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr><td colspan="6" class="text-center text-muted">No campaigns yet. Create your first one!</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

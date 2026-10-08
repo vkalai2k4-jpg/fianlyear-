@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Templates{% endblock %}
+{% block content %}
+<h3 class="mb-1">Templates Gallery</h3>
+<p class="text-muted mb-4">Ready-made content for every marketing type. Pick "Use Template" on the New Campaign page and this fills in automatically.</p>
+
+<div class="row g-3">
+    {% for item in previews %}
+    <div class="col-md-6">
+        <div class="card p-3 h-100">
+            <span class="badge bg-primary mb-2 align-self-start">{{ item.type }}</span>
+            <h5>{{ item.preview.headline }}</h5>
+            <p class="text-muted small mb-2">{{ item.preview.caption }}</p>
+            <a href="{{ url_for('campaign_input', marketing_type=item.type) }}" class="btn btn-sm btn-primary align-self-start">Use this template</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

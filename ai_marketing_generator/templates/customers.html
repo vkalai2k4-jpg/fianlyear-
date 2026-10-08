@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}Customers{% endblock %}
+{% block content %}
+<h3 class="mb-3">Customer List</h3>
+<div class="card form-card p-4 mb-4">
+    <form method="POST" class="row g-2">
+        <div class="col-md-4">
+            <input type="text" name="name" class="form-control" placeholder="Customer name" required>
+        </div>
+        <div class="col-md-4">
+            <input type="email" name="email" class="form-control" placeholder="Customer email" required>
+        </div>
+        <div class="col-md-2">
+            <select name="preferred_language" class="form-select">
+                <option>English</option>
+                <option>Tamil</option>
+                <option>Tanglish</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">Add</button>
+        </div>
+    </form>
+    <p class="small mt-3 mb-0 form-note">A verification code will be emailed to the customer. Only verified customers receive campaign emails.</p>
+</div>
+
+<div class="card p-3">
+    <table class="table">
+        <thead><tr><th>Name</th><th>Email</th><th>Language</th><th>Status</th><th></th></tr></thead>
+        <tbody>
+        {% for c in customers %}
+            <tr>
+                <td>{{ c.name }}</td>
+                <td>{{ c.email }}</td>
+                <td>{{ c.preferred_language }}</td>
+                <td>
+                    {% if c.is_verified %}
+                        <span class="badge bg-success">Verified</span>
+                    {% else %}
+                        <span class="badge bg-warning text-dark">Pending</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if not c.is_verified %}
+                        <a href="{{ url_for('verify_customer_otp', customer_id=c.id) }}" class="btn btn-sm btn-outline-primary">Verify</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr><td colspan="5" class="text-center text-muted">No customers added yet.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

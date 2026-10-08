@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Review Campaign{% endblock %}
+{% block content %}
+<h3 class="mb-3">Review — {{ campaign.product_name }}</h3>
+
+{% if selected %}
+<div class="email-preview mb-4">
+    <h4>{{ selected.headline }}</h4>
+    <hr>
+    <p>{{ selected.caption }}</p>
+    <button class="btn btn-success">{{ selected.cta }}</button>
+    <p class="mt-2"><small>Sentiment score: {{ selected.sentiment_score }}</small></p>
+</div>
+{% endif %}
+
+<form method="POST" action="{{ url_for('decide_campaign', campaign_id=campaign.id) }}">
+    <div class="mb-3">
+        <label class="form-label">Comment (optional)</label>
+        <textarea name="comment" class="form-control" rows="2"></textarea>
+    </div>
+    <button type="submit" name="decision" value="Approved" class="btn btn-success">Approve</button>
+    <button type="submit" name="decision" value="Rejected" class="btn btn-danger">Reject</button>
+</form>
+{% endblock %}

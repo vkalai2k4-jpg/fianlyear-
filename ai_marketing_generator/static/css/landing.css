@@ -1,0 +1,117 @@
+:root {
+    --ink: #0d0a1f;
+    --ink-2: #17122e;
+    --purple: #7c4dff;
+    --pink: #ff4fa3;
+    --grad: linear-gradient(90deg, #7c4dff, #ff4fa3);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.7;
+    color: #1b1735;
+    background: #fff;
+}
+
+h1, h2, h3, .num { font-family: 'Manrope', 'Inter', sans-serif; font-weight: 800; }
+
+/* ---------- top nav ---------- */
+.topnav {
+    position: absolute; top: 0; left: 0; right: 0; z-index: 10;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 22px 6vw; color: #fff;
+}
+.logo { font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 1.1rem; }
+.topnav-links { display: flex; align-items: center; gap: 28px; }
+.topnav-links a { color: #fff; text-decoration: none; font-size: 0.9rem; opacity: 0.85; }
+.topnav-links a:hover { opacity: 1; }
+.topnav-links .pill { opacity: 1; }
+
+/* ---------- shared ---------- */
+.dark  { background: var(--ink); color: #fff; }
+.light { background: #f7f5ff; color: #1b1735; }
+.section { padding: 110px 6vw; }
+
+.label {
+    display: inline-block;
+    font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: #b79cff;
+    margin-bottom: 16px;
+}
+.label.dark-label { color: var(--purple); }
+
+.pill {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--grad); color: #fff !important;
+    padding: 16px 34px; border-radius: 999px;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    font-size: 0.82rem; font-weight: 600; text-decoration: none;
+    box-shadow: 0 10px 30px rgba(124, 77, 255, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.pill:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(255, 79, 163, 0.4); }
+.pill-sm { padding: 10px 20px; font-size: 0.72rem; }
+.arrow { transition: transform 0.2s ease; }
+.pill:hover .arrow { transform: translateX(4px); }
+
+.grad-text { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* ---------- hero ---------- */
+.hero { position: relative; overflow: hidden; min-height: 92vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 140px 6vw 100px; }
+.hero-inner { position: relative; z-index: 2; max-width: 900px; }
+.hero h1 { font-size: clamp(2.6rem, 7vw, 4.8rem); line-height: 1.1; margin-bottom: 24px; }
+.hero .sub { font-size: 1.15rem; color: #c9c2e6; max-width: 620px; margin: 0 auto 40px; }
+
+.glow { position: absolute; border-radius: 50%; filter: blur(110px); opacity: 0.45; z-index: 1; animation: drift 14s ease-in-out infinite; }
+.glow-a { width: 480px; height: 480px; background: var(--purple); top: -120px; left: -100px; }
+.glow-b { width: 420px; height: 420px; background: var(--pink); bottom: -120px; right: -80px; animation-delay: -6s; }
+@keyframes drift { 0%,100% { transform: translate(0,0); } 50% { transform: translate(50px, 40px); } }
+
+/* ---------- stats ---------- */
+.stats { display: flex; justify-content: center; gap: 6vw; flex-wrap: wrap; padding: 90px 6vw; text-align: center; }
+.num { font-size: clamp(2.4rem, 5vw, 3.6rem); background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.cap { color: #8a86a3; font-size: 0.9rem; margin-top: 4px; }
+
+/* ---------- section heads ---------- */
+.section-head { text-align: center; margin-bottom: 60px; }
+.section-head h2 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.2; }
+
+/* ---------- carousel ---------- */
+.carousel { display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 10px 6vw 30px; margin: 0 -6vw; scrollbar-width: thin; }
+.fcard { flex: 0 0 300px; scroll-snap-align: start; background: var(--ink-2); border-radius: 16px; padding: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.35); transition: transform 0.25s ease; }
+.fcard:hover { transform: scale(1.04); }
+.fimg { height: 170px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 3.4rem; margin-bottom: 16px; }
+.g1 { background: linear-gradient(135deg, #7c4dff, #4c8cff); }
+.g2 { background: linear-gradient(135deg, #ff4fa3, #ff8a4c); }
+.g3 { background: linear-gradient(135deg, #2fbfa6, #4c8cff); }
+.g4 { background: linear-gradient(135deg, #ffd54f, #ff8a4c); }
+.g5 { background: linear-gradient(135deg, #7c4dff, #ff4fa3); }
+.badge { display: inline-block; background: rgba(124,77,255,0.25); color: #d3c2ff; font-size: 0.7rem; font-weight: 600; padding: 3px 12px; border-radius: 999px; margin-bottom: 8px; }
+.fcard h3 { font-size: 1.15rem; margin-bottom: 6px; }
+.fcard p { font-size: 0.88rem; color: #b5aed4; }
+
+/* ---------- workflow ---------- */
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 24px; max-width: 1100px; margin: 0 auto; }
+.step { background: #fff; border-radius: 16px; padding: 28px; box-shadow: 0 8px 26px rgba(124,77,255,0.1); transition: transform 0.2s ease; }
+.step:hover { transform: translateY(-4px); }
+.step h3 { font-size: 1.25rem; margin-bottom: 6px; }
+.step p { color: #6c6789; font-size: 0.9rem; }
+
+/* ---------- built-with strip ---------- */
+.strip-section { padding: 60px 0; text-align: center; }
+.strip-title { font-size: 0.75rem; letter-spacing: 0.2em; color: #8a86a3; margin-bottom: 26px; }
+.marquee { overflow: hidden; }
+.marquee-track { display: inline-flex; gap: 70px; white-space: nowrap; animation: scroll 28s linear infinite; }
+.marquee-track span { font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 1.4rem; color: #5d5878; filter: grayscale(1); }
+@keyframes scroll { to { transform: translateX(-50%); } }
+
+/* ---------- cta + footer ---------- */
+.cta { text-align: center; padding: 110px 6vw; }
+.cta h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); margin-bottom: 32px; }
+.footer { background: var(--ink); color: #8a86a3; text-align: center; padding: 28px; font-size: 0.82rem; }
+
+@media (max-width: 640px) { .topnav-links a:not(.pill) { display: none; } }

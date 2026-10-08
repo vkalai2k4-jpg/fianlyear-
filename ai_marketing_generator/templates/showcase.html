@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Showcase{% endblock %}
+{% block content %}
+<h3 class="mb-1 float-heading">Showcase</h3>
+<p class="text-muted mb-4">Real campaigns approved and sent through this app.</p>
+
+<div class="row g-3">
+    {% for item in items %}
+    <div class="col-md-6 col-lg-4">
+        <div class="card showcase-card p-3 h-100">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="badge bg-primary">{{ item.campaign.marketing_type or 'General' }}</span>
+                <span class="badge bg-success">{{ item.campaign.status }}</span>
+            </div>
+            <h5>{{ item.content.headline }}</h5>
+            <p class="text-muted small mb-2">{{ item.content.caption }}</p>
+            <div class="d-flex justify-content-between align-items-center mt-auto pt-2">
+                <span class="btn btn-sm btn-outline-dark disabled">{{ item.content.cta }}</span>
+                <span class="small text-muted">
+                    {{ item.campaign.platform }}
+                    {% if item.content.sentiment_score is not none %}
+                        &middot;
+                        {% if item.content.sentiment_score > 0.2 %} 😊
+                        {% elif item.content.sentiment_score < -0.2 %} 😕
+                        {% else %} 🙂
+                        {% endif %}
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <p class="text-muted text-center">No approved campaigns yet. Once you approve and send a campaign, it will appear here.</p>
+    {% endfor %}
+</div>
+{% endblock %}

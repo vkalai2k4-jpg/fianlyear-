@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block title %}New Campaign{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <div class="card p-4">
+            <h3 class="mb-3">New Campaign</h3>
+            <form method="POST">
+                <div class="mb-3">
+                    <label class="form-label">Product Name</label>
+                    <input type="text" name="product_name" class="form-control" value="{{ idea_title }}" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Product Description</label>
+                    <textarea name="description" class="form-control" rows="3" required>{{ idea_description }}</textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Target Audience</label>
+                    <input type="text" name="target_audience" class="form-control" placeholder="e.g. college students, working professionals">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Platform</label>
+                    <select name="platform" class="form-select">
+                        <option>Email</option>
+                        <option>Instagram</option>
+                        <option>WhatsApp</option>
+                        <option>Facebook</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Campaign Goal</label>
+                    <select name="goal" class="form-select">
+                        <option>Sales</option>
+                        <option>Brand Awareness</option>
+                        <option>Engagement</option>
+                        <option>Product Launch</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Tone</label>
+                    <select name="tone" class="form-select">
+                        <option>Persuasive</option>
+                        <option>Formal</option>
+                        <option>Friendly</option>
+                        <option>Urgent</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Marketing Type</label>
+                    <select name="marketing_type" class="form-select">
+                        {% for mt in marketing_types %}
+                        <option {% if mt == selected_type %}selected{% endif %}>{{ mt }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Content Language</label>
+                    <select name="language" class="form-select">
+                        <option>English</option>
+                        <option>Tamil</option>
+                        <option>Tanglish</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label d-block">Content Source</label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="content_mode" value="AI" id="modeAI" {% if not use_template %}checked{% endif %}>
+                        <label class="form-check-label" for="modeAI">Use AI</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="content_mode" value="Template" id="modeTemplate" {% if use_template %}checked{% endif %}>
+                        <label class="form-check-label" for="modeTemplate">Use Template</label>
+                    </div>
+                </div>
+                {% if use_template %}
+                <p class="small text-success">Pre-filled from Templates Gallery: <b>{{ selected_type }}</b>. Fill your product details below and generate.</p>
+                {% endif %}
+                <button type="submit" class="btn btn-primary w-100">Generate Content</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

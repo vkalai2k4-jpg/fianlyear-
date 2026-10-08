@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Manager Dashboard{% endblock %}
+{% block content %}
+<h3 class="mb-3">Pending Approvals</h3>
+<div class="card p-3 mb-4">
+    <table class="table">
+        <thead><tr><th>Product</th><th>Owner</th><th>Platform</th><th>Tone</th><th></th></tr></thead>
+        <tbody>
+        {% for c in pending %}
+            <tr>
+                <td>{{ c.product_name }}</td>
+                <td>{{ c.owner_id }}</td>
+                <td>{{ c.platform }}</td>
+                <td>{{ c.tone }}</td>
+                <td><a href="{{ url_for('review_campaign', campaign_id=c.id) }}" class="btn btn-sm btn-primary">Review</a></td>
+            </tr>
+        {% else %}
+            <tr><td colspan="5" class="text-center text-muted">No pending campaigns.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<h3 class="mb-3">Reviewed History</h3>
+<div class="card p-3">
+    <table class="table">
+        <thead><tr><th>Product</th><th>Status</th><th>Date</th></tr></thead>
+        <tbody>
+        {% for c in reviewed %}
+            <tr>
+                <td>{{ c.product_name }}</td>
+                <td><span class="badge bg-secondary">{{ c.status }}</span></td>
+                <td>{{ c.created_at.strftime('%d %b %Y') }}</td>
+            </tr>
+        {% else %}
+            <tr><td colspan="3" class="text-center text-muted">No reviewed campaigns yet.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
