@@ -7,3 +7,4 @@ werkzeug
 requests
 pillow
 gunicorn
+psycopg2-binary
